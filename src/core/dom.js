@@ -1,8 +1,7 @@
 class Dom {
   constructor(selector) {
-    this.$el = typeof selector === 'string'
-    ? document.querySelector(selector)
-    : selector
+    this.$el =
+      typeof selector === 'string' ? document.querySelector(selector) : selector
   }
 
   html(html) {
@@ -11,6 +10,10 @@ class Dom {
       return this
     }
     return this.$el.outerHTML.trim()
+  }
+
+  text(text) {
+    this.$el.textContent = text
   }
 
   clear() {
@@ -63,7 +66,7 @@ class Dom {
   css(styles = {}) {
     Object.keys(styles).forEach(key => {
       this.$el.style[key] = styles[key]
-    });
+    })
   }
 
   id(parce) {
@@ -71,7 +74,7 @@ class Dom {
       const parsed = this.id().split(':')
       return {
         row: +parsed[0],
-        col: +parsed[1]
+        col: +parsed[1],
       }
     }
     return this.data.id
@@ -102,4 +105,3 @@ $.create = (tagname, classes = '') => {
   }
   return $(el)
 }
-
