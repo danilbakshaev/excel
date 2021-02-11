@@ -30,7 +30,7 @@ export class Table extends ExcelComponent {
     const $cell = this.$root.find('[data-id="0:0"')
     this.selection.select($cell)
 
-    this.emitter.subscribe('it is working', text => {
+    this.$on('formula:input', text => {
       this.selection.current.text(text)
     })
   }
@@ -69,5 +69,9 @@ export class Table extends ExcelComponent {
       const $next = this.$root.find(nextSelector(key, id))
       this.selection.select($next)
     }
+  }
+
+  destroy() {
+    super.destroy()
   }
 }
