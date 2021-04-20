@@ -17,7 +17,7 @@ class Dom {
       this.$el.textContent = text
       return this
     }
-    if (this.$el.tagName.toLowerCase() === '') {
+    if (this.$el.tagName.toLowerCase() === 'input') {
       return this.$el.value.trim()
     }
     return this.$el.textContent.trim()
@@ -54,16 +54,16 @@ class Dom {
     return this
   }
 
+  get data() {
+    return this.$el.dataset
+  }
+
   closest(selector) {
     return $(this.$el.closest(selector))
   }
 
   getCoords() {
     return this.$el.getBoundingClientRect()
-  }
-
-  get data() {
-    return this.$el.dataset
   }
 
   findAll(selector) {
@@ -76,8 +76,15 @@ class Dom {
     })
   }
 
-  id(parce) {
-    if (parce) {
+  getStyles(styles = []) {
+    return styles.reduce((res, s) => {
+      res[s] = this.$el.style[s]
+      return res
+    }, {})
+  }
+
+  id(parse) {
+    if (parse) {
       const parsed = this.id().split(':')
       return {
         row: +parsed[0],
@@ -107,8 +114,8 @@ export function $(selector) {
   return new Dom(selector)
 }
 
-$.create = (tagname, classes = '') => {
-  const el = document.createElement(tagname)
+$.create = (tagName, classes = '') => {
+  const el = document.createElement(tagName)
   if (classes) {
     el.classList.add(classes)
   }
