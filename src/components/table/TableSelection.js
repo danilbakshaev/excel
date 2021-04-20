@@ -18,7 +18,7 @@ export class TableSelection {
     this.group = []
   }
 
-  get SelectedIds() {
+  get selectedIds() {
     return this.group.map($el => $el.id())
   }
 
