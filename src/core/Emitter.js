@@ -3,7 +3,8 @@ export class Emitter {
     this.listeners = {}
   }
 
-  // Уведомляем слушателей, если они есть
+  // dispatch, fire, trigger
+  // Уведомляем слушателе если они есть
   // table.emit('table:select', {a: 1})
   emit(event, ...args) {
     if (!Array.isArray(this.listeners[event])) {
@@ -15,8 +16,9 @@ export class Emitter {
     return true
   }
 
-  // on, listen и т.д.
-  // Подписываемся на уведомления / Добавляем нового слушателя
+  // on, listen
+  // Подписываемся на уведомление
+  // Добавляем нового слушателя
   // formula.subscribe('table:select', () => {})
   subscribe(event, fn) {
     this.listeners[event] = this.listeners[event] || []
