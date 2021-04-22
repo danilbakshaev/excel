@@ -80,6 +80,7 @@ export class Table extends ExcelComponent {
         )
         this.selection.selectGroup($cells)
       } else {
+        this.refreshPrevCell()
         this.selectCell($target)
       }
     }
@@ -101,6 +102,7 @@ export class Table extends ExcelComponent {
       event.preventDefault()
       const id = this.selection.current.id(true)
       const $next = this.$root.find(nextSelector(key, id))
+      this.refreshPrevCell()
       this.selectCell($next)
     }
   }
@@ -115,6 +117,11 @@ export class Table extends ExcelComponent {
   }
 
   onInput(event) {
+    this.selection.current.attr('data-value', this.selection.current.text())
     this.updateTextInStore($(event.target).text())
+  }
+
+  refreshPrevCell() {
+    this.selection.current.text(parse(this.selection.current.text()))
   }
 }
